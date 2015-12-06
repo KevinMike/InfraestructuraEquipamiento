@@ -42,7 +42,7 @@ body {
 	-ms-transition:all .2s linear;
 }
 .header {
-	background:#23272a;
+	background:#4a8edb;
 	padding:px 0;
 }
 .header_top {
@@ -98,7 +98,7 @@ body {
 }
 /** Navigation **/
 .navigation{
-	background:#000;
+	background:#4a8edb;
 	padding:5px 0;
 	position:relative;
 }
@@ -130,8 +130,8 @@ body {
 .nav {
     list-style: none;
      *zoom: 1;
-     background:#000;
-     border-bottom:1px solid #000;
+     background:#2b50b4;
+     border-bottom:1px solid #2b50b4;
 }
 .nav:before,
 .nav:after {
@@ -613,7 +613,7 @@ body {
 }
 /*** Footer ***/
 .footer {
-	background:#000;
+	background:#4a8edb;
 	padding:3% 0;
 }
 .footer-nav{

@@ -1,8 +1,15 @@
+<?
+	include("conexion.php");
+
+	$_GET["nodo"]="ambiente";
+	$_GET["contexto"]="infraestructura";
+	$_GET["id_filtro"]="1";
+?>
 
 <!DOCTYPE HTML>
 <head>
-<title>Infraestructura y _Equipamiento de la E.A.P Ingenieria en Informatica y Sistemas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Infraestructura y Equipamiento - ESIS - UNJBG</title>
+<meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -27,19 +34,19 @@
   			<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li>
-						<a href="index.html">Inicio</a>
+						<a href="index.php">Inicio</a>
 					</li>
-					<li  class="test">
+					<li>
 						<a href="#">Infraestructura</a>	
 					</li>
 					<li>
 						<a href="#">Ambientes</a>
-						<ul>
+						<!--<ul>
 							<li>
-								<a href="#">Finalidad</a>
+								<a href="#">Por Finalidad</a>
 								<ul>
-									<li><a href="#">Academica</a></li>
-									<li><a href="#">Proyeccion Social</a></li>
+									<li><a href="#">Académica</a></li>
+									<li><a href="#">Proyección Social</a></li>
 									<li><a href="#">Administrativa</a></li>
 								</ul>
 							</li>
@@ -51,11 +58,11 @@
 									<li><a href="#">Edificio 3</a></li>
 								</ul>
 							</li>
-						</ul>
+						</ul>-->
 					</li>
 					<li>
 						<a href="#">Equipo</a>
-						<ul>
+						<!--<ul>
 							<li>
 								<a href="#">Finalidad</a>
 								<ul>
@@ -80,23 +87,11 @@
 									<li><a href="#">Ambiente 3</a></li>
 								</ul>
 							</li>
-						</ul>
+						</ul>-->
 					</li>
+					<li></li> <!-- <li></li> para que aparezca la rayita naranja -->
 				</ul>
-				<span class="left-ribbon"> </span> 
-      	<span class="right-ribbon"> </span>    
   		</div>
-  		<div class="header_bottom">
-  			<div class="slider-text">
-  				<h2>INFRAESTRUCTURA Y EQUIPAMIENTO <br/>Escuela Academico profesional en Ingenieria en Informatica y Sistemas</h2>
-  				<p>Vivamus vitae augue at quam frigilla tristique sit amet<br/> acin ante sikumpre tisdin.</p>
-  				<a href="#">Sitamet Tortorions</a>
-  			</div>
-  			<div class="slider-img">
-  				<img src="images/slider-img.png" alt="" />
-  			</div>
-  			<div class="clear"></div>
-	    </div>
    	</div>
   </div>
   <div class="main">
@@ -104,18 +99,85 @@
  	    <div class="wrap">
  	    	<div class="content-bottom-left">
 					<div class="categories">
+					  
+						<?
+							if($_GET["nodo"]=="ambiente")
+							{
+						?>
+					  
 					  <ul>
-						  <h3>Categorias </h3>
-							<li><a href="#">Equipos</a></li>
-							<ul>
-								<li><a href="#">Marchas</a>
-							</ul>
-								<li><a href="#">Tipo de Equipo</a></li>
-				  	 </ul>
-					</div>		
+						  <h3>Infraestructura</h3>
+
+							<?
+								$query="call ver_facultades();";
+								$result=$conexion->query($query);
+								$infra=array();
+								while($row = mysqli_fetch_row($result))
+								{
+									$infra=$row;
+								}
+								mysqli_free_result($result);
+								$conexion->next_result();
+							?>
+
+							<?
+								for ($i=0; $i<count($infra); $i++)
+								{ 
+							?>
+									<li>
+										<a href="#"><? echo $infra[$i]; ?></a>
+									</li>
+							<?
+								}
+							?>
+
+				  	</ul>
+
+				  	<ul>
+						  <h3>Finalidad</h3>
+
+						  <?
+								$query="call ver_finalidades();";
+								$result=$conexion->query($query);
+								$final=array();
+								while($row = mysqli_fetch_row($result))
+								{
+									$final=$row;
+								}
+								mysqli_free_result($result);
+								$conexion->next_result();
+							?>
+
+							<?
+								for ($i=0; $i<count($final); $i++)
+								{ 
+							?>
+									<li>
+										<a href="#"><? echo $final[$i]; ?></a>
+									</li>
+							<?
+								}
+							?>
+				  	 
+
+				  	</ul>
+
+				  	<?
+				  		}
+				  	?>
+
+
+
+
+					</div>
 				</div>
     	  <div class="content-bottom-right">
-    	    <h3>Browse All Categories</h3>
+    	    <ul class="back-links">
+						<li><a href="#">Inicio</a> ::</li>
+						<li><a href="#">Product Page</a> ::</li>
+						<li>Product Name</li>
+						<div class="clear"> </div>
+					</ul>
  					<div class="grid_1_of_4 images_1_of_4">
 						<h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
 					  <a href="preview.html"><img src="images/product-img1.jpg" alt="" /></a>
@@ -180,4 +242,3 @@
   <script type="text/javascript" src="js/navigation.js"></script>
 </body>
 </html>
-
