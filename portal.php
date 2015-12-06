@@ -1,9 +1,6 @@
 <?
 	include("conexion.php");
-
-	$_GET["nodo"]="ambiente";
-	$_GET["contexto"]="infraestructura";
-	$_GET["id_filtro"]="1";
+	header('Content-Type: text/html; charset=ISO-8859-1');
 ?>
 
 <!DOCTYPE HTML>
@@ -23,7 +20,7 @@
   	<div class="wrap">
 			<div class="header_top">
 				<div class="logo">
-					<a href="index.html" ><img src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
+					<a href="index.php" ><img src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
 					<div class="slider-text">
 			   		<h2> INFRAESTRUCTURA Y EQUIPAMIENTO <br/>Escuela Academico profesional en Ingenieria en Informatica y Sistemas</h2>
 	  	    </div>
@@ -37,16 +34,16 @@
 						<a href="index.php">Inicio</a>
 					</li>
 					<li>
-						<a href="#">Infraestructura</a>	
+						<a href="index.php#infra">Infraestructura</a>	
 					</li>
 					<li>
-						<a href="#">Ambientes</a>
+						<a href="portal.php?nodo=ambiente">Ambientes</a>
 						<!--<ul>
 							<li>
 								<a href="#">Por Finalidad</a>
 								<ul>
-									<li><a href="#">AcadÃ©mica</a></li>
-									<li><a href="#">ProyecciÃ³n Social</a></li>
+									<li><a href="#">Académica</a></li>
+									<li><a href="#">Proyección Social</a></li>
 									<li><a href="#">Administrativa</a></li>
 								</ul>
 							</li>
@@ -61,7 +58,7 @@
 						</ul>-->
 					</li>
 					<li>
-						<a href="#">Equipo</a>
+						<a href="portal.php?nodo=equipo">Equipo</a>
 						<!--<ul>
 							<li>
 								<a href="#">Finalidad</a>
@@ -100,21 +97,17 @@
  	    	<div class="content-bottom-left">
 					<div class="categories">
 					  
-						<?
-							if($_GET["nodo"]=="ambiente")
-							{
-						?>
 					  
 					  <ul>
-						  <h3>Infraestructura</h3>
+						  <h3>Edificio</h3>
 
 							<?
-								$query="call ver_facultades();";
+								$query="call contexto_edificio();";
 								$result=$conexion->query($query);
 								$infra=array();
 								while($row = mysqli_fetch_row($result))
 								{
-									$infra=$row;
+									$infra[]=$row;
 								}
 								mysqli_free_result($result);
 								$conexion->next_result();
@@ -125,24 +118,50 @@
 								{ 
 							?>
 									<li>
-										<a href="#"><? echo $infra[$i]; ?></a>
+										<a <? echo "href='portal.php?nodo=".$_GET['nodo']."&contexto=edificio&filtro=".$infra[$i][1]."'"; ?> ><? echo $infra[$i][1]; ?></a>
 									</li>
 							<?
 								}
 							?>
+				  	</ul>
 
+					  <ul>
+						  <h3>Facultad</h3>
+
+							<?
+								$query="call contexto_facultad();";
+								$result=$conexion->query($query);
+								$infra=array();
+								while($row = mysqli_fetch_row($result))
+								{
+									$facu[]=$row;
+								}
+								mysqli_free_result($result);
+								$conexion->next_result();
+							?>
+
+							<?
+								for ($i=0; $i<count($facu); $i++)
+								{ 
+							?>
+									<li>
+										<a <? echo "href='portal.php?nodo=".$_GET['nodo']."&contexto=facultad&filtro=".$facu[$i][1]."'"; ?> ><? echo $facu[$i][1]; ?></a>
+									</li>
+							<?
+								}
+							?>
 				  	</ul>
 
 				  	<ul>
 						  <h3>Finalidad</h3>
 
 						  <?
-								$query="call ver_finalidades();";
+								$query="call contexto_finalidad()";
 								$result=$conexion->query($query);
 								$final=array();
 								while($row = mysqli_fetch_row($result))
 								{
-									$final=$row;
+									$final[]=$row;
 								}
 								mysqli_free_result($result);
 								$conexion->next_result();
@@ -153,21 +172,89 @@
 								{ 
 							?>
 									<li>
-										<a href="#"><? echo $final[$i]; ?></a>
+										<a <? echo "href='portal.php?nodo=".$_GET['nodo']."&contexto=finalidad&filtro=".$final[$i][1]."'"; ?> ><? echo $final[$i][1]; ?></a>
 									</li>
 							<?
 								}
-							?>
-				  	 
-
+							?>			  	 
 				  	</ul>
 
 				  	<?
+							if($_GET["nodo"]=="equipo")
+							{
+						?>
+
+								<ul>
+								  <h3>Ambiente</h3>
+
+								  <?
+										$query="call contexto_ambiente()";
+										$result=$conexion->query($query);
+										$ambi=array();
+										while($row = mysqli_fetch_row($result))
+										{
+											$ambi[]=$row;
+										}
+										mysqli_free_result($result);
+										$conexion->next_result();
+									?>
+
+									<?
+										for ($i=0; $i<count($ambi); $i++)
+										{ 
+									?>
+											<li>
+												<a <? echo "href='portal.php?nodo=".$_GET['nodo']."&contexto=ambiente&filtro=".$ambi[$i][1]."'"; ?> ><? echo $ambi[$i][1]; ?></a>
+											</li>
+									<?
+										}
+									?>			  	 
+						  	</ul>
+
+						<?
+								$query="call supercontexto_especificacion()";
+								$result=$conexion->query($query);
+								$tipo=array();
+								while($row = mysqli_fetch_row($result))
+								{
+									$tipo[]=$row;
+								}
+								mysqli_free_result($result);
+								$conexion->next_result();
+								for ($i=0; $i < count($tipo); $i++)
+								{ 
+						?>
+								  <ul>
+									  <h3><? echo $tipo[$i][1]; ?></h3>
+
+										<?
+											$query="call contexto_especificacion('".$tipo[$i][0]."');";
+											$result=$conexion->query($query);
+											$espe=array();
+											while($row = mysqli_fetch_row($result))
+											{
+												$espe[]=$row;
+											}
+											mysqli_free_result($result);
+											$conexion->next_result();
+										?>
+
+										<?
+											for ($j=0; $j<count($espe); $j++)
+											{ 
+										?>
+												<li>
+													<a <a <? echo "href='portal.php?nodo=".$_GET['nodo']."&contexto=".$espe[$j][0]."&filtro=".$espe[$j][2]."'"; ?> ><? echo $espe[$j][1]; ?></a>
+												</li>
+										<?
+											}
+										?>
+							  	</ul>
+
+				  	<?
+				  			}
 				  		}
 				  	?>
-
-
-
 
 					</div>
 				</div>
@@ -178,42 +265,118 @@
 						<li>Product Name</li>
 						<div class="clear"> </div>
 					</ul>
+
+					<?
+						// $_GET["nodo"]="equipo";
+						// $_GET["contexto"]="infraestructura";
+						// $_GET["filtro"]="4";
+
+
+						if ($_GET["nodo"]=="ambiente")
+						{
+							if (!isset($_GET["contexto"]))
+							{
+								$query="call ambiente_contexto_NULL()";
+							}
+							elseif ($_GET["contexto"]=="edificio")
+							{
+								$query="call ambiente_contexto_edificio('".$_GET["filtro"]."')";
+							}
+							elseif ($_GET["contexto"]=="facultad")
+							{
+								$query="call ambiente_contexto_facultad('".$_GET["filtro"]."')";
+							}
+							elseif ($_GET["contexto"]=="finalidad")
+							{
+								$query="call ambiente_contexto_finalidad('".$_GET["filtro"]."')";
+							}
+						}
+						elseif ($_GET["nodo"]=="equipo")
+						{
+							if (!isset($_GET["contexto"]))
+							{
+								$query="call equipo_contexto_NULL()";
+							}
+							elseif ($_GET["contexto"]=="edificio")
+							{
+								$query="call equipo_contexto_edificio('".$_GET["filtro"]."')";
+							}
+							elseif ($_GET["contexto"]=="facultad")
+							{
+								$query="call equipo_contexto_facultad('".$_GET["filtro"]."')";
+							}
+							elseif ($_GET["contexto"]=="finalidad")
+							{
+								$query="call equipo_contexto_finalidad('".$_GET["filtro"]."')";
+							}
+							elseif ($_GET["contexto"]=="ambiente")
+							{
+								$query="call equipo_contexto_ambiente('".$_GET["filtro"]."')";
+							}
+							else
+							{
+								$query="call equipo_contexto_especificacion('".$_GET["contexto"]."','".$_GET["filtro"]."')";
+							}
+						}
+						$result=$conexion->query($query);
+						$nodo=array();
+						while($row = mysqli_fetch_row($result))
+						{
+							$nodo[]=$row;
+						}
+						mysqli_free_result($result);
+						$conexion->close();
+						for ($i=0; $i < count($nodo); $i++)
+						{ 
+							if ($_GET["nodo"]=="ambiente")
+							{
+
+					?>
+
  					<div class="grid_1_of_4 images_1_of_4">
-						<h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
-					  <a href="preview.html"><img src="images/product-img1.jpg" alt="" /></a>
+						<h4><a href="preview.html"><? echo $nodo[$i][1]; ?></a></h4>
+					  <a href="preview.html"><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][7]."'"; ?> alt="" /></a>
+					  <br>
+					  <small>Ubicado en <? echo $nodo[$i][2]; ?></small><br>
+						<small>Facultad de <? echo $nodo[$i][3]; ?></small><br>
+						<small>Piso <? echo $nodo[$i][4]; ?></small><br>
+						<small>Finalidad <? echo $nodo[$i][5]; ?></small><br>
+						<small>Capacidad <? echo $nodo[$i][6]; ?></small><br><br>
 					  <div class="price-details">
 				    	<div class="add-cart">								
-								<h4><a href="preview.html">More Info</a></h4>
-							</div>
-						</div>
-						<div class="clear">
-						</div>
-					</div>	
-
-
-					<div class="grid_1_of_4 images_1_of_4">
-						<h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
-					  <a href="preview.html"><img src="images/product-img1.jpg" alt="" /></a>
-					  <div class="price-details">
-				    	<div class="add-cart">								
-								<h4><a href="preview.html">More Info</a></h4>
+								<h4><a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> >Ver Equipos</a></h4>
 							</div>
 						</div>
 						<div class="clear">
 						</div>
 					</div>
 
+					<?
+							}
+							elseif ($_GET["nodo"]=="equipo")
+							{
+					?>
+
 					<div class="grid_1_of_4 images_1_of_4">
-						<h4><a href="preview.html">Whirlpool LTE5243D 3.4 CuFt.... </a></h4>
-					  <a href="preview.html"><img src="images/product-img1.jpg" alt="" /></a>
+						<h4><a href="preview.html"><? echo $nodo[$i][2]; ?></a></h4>
+					  <a href="preview.html"><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][1]."'"; ?> alt="" /></a>
+					  <br>
+					  <small>Codigo Patrimonial <? echo $nodo[$i][3]; ?></small><br>
+						<small>Fecha de Adquisición <? echo $nodo[$i][4]; ?></small><br><br>
 					  <div class="price-details">
 				    	<div class="add-cart">								
-								<h4><a href="preview.html">More Info</a></h4>
+								<h4><a href="preview.html">Ver Equipos</a></h4>
 							</div>
 						</div>
 						<div class="clear">
 						</div>
-					</div>	
+					</div>
+
+					<?
+							}
+						}
+					?>
+
 				</div>
 		    <div class="clear"></div>
 		   	</div>

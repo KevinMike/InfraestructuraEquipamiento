@@ -28,19 +28,21 @@
 								
 							</header>
 							<footer>
-								<a href="portal.html" class="button circled scrolly">Portal</a>
+								<a href="#infra" class="button circled scrolly">Edificios</a><a href=""> - </a>
+								<a href="portal.php?nodo=ambiente" class="button circled scrolly">Ambientes</a><a href=""> - </a>
+								<a href="portal.php?nodo=equipo" class="button circled scrolly">Equipos</a>
 							</footer>
 						</div>
 
 					<!-- Nav -->
 						
 			<!-- Carousel -->
-				<section class="carousel">
+				<section class="carousel" id='infra'>
 					<br>
 						<br>
 						<br>
 					<br>
-					<h2>INFRAESTRUCTURA</h2>
+					<h2>Edificios</h2>
 					<br>
 					<br>
 					<br>
@@ -75,7 +77,7 @@
 									<p>Nro de Pisos: <? echo $infra[$i][3]; ?></p>
 									<p>Fecha de Construcción: <? echo $infra[$i][4]; ?></p>
 									<footer>
-										<a href="#" class="button circled scrolly">Ver mas...</a>
+										<a <? echo "href='portal.php?nodo=ambiente&contexto=edificio&filtro=".$infra[$i][1]."'"; ?> class="button circled scrolly">Ambientes</a>
 									</footer>
 								</article>
 						<?
