@@ -1,6 +1,13 @@
 <?
 	include("conexion.php");
 	header('Content-Type: text/html; charset=ISO-8859-1');
+
+	if(!isset($_GET['nodo']))
+	{
+		header("Location: index.php");
+		exit;
+	}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -19,6 +26,7 @@
 	<div class="header">
   	<div class="wrap">
 			<div class="header_top">
+					<br><br>
 				<div class="logo">
 					<a href="index.php" ><img src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
 					<div class="slider-text">
@@ -26,7 +34,8 @@
 	  	    </div>
 				</div>
 				<div class="clear"></div>
-  		</div>     
+  		</div>  
+  		<br><br>   
   		<div class="navigation">
   			<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
@@ -96,8 +105,7 @@
  	    <div class="wrap">
  	    	<div class="content-bottom-left">
 					<div class="categories">
-					  
-					  
+
 					  <ul>
 						  <h3>Edificio</h3>
 
@@ -258,11 +266,12 @@
 
 					</div>
 				</div>
+				
     	  <div class="content-bottom-right">
     	    <ul class="back-links">
-						<li><a href="#">Inicio</a> ::</li>
-						<li><a href="#">Product Page</a> ::</li>
-						<li>Product Name</li>
+						<li><a href="#">Nodo: <? echo $_GET['nodo']; ?></a> ::</li>
+						<li><a href="#">Contexto: <? if(isset($_GET['contexto'])){echo $_GET['contexto'];} ?></a> ::</li>
+						<li><a href="#">Filtro: <? if(isset($_GET['filtro'])){echo $_GET['filtro'];} ?></a></li>
 						<div class="clear"> </div>
 					</ul>
 
@@ -334,8 +343,8 @@
 					?>
 
  					<div class="grid_1_of_4 images_1_of_4">
-						<h4><a href="preview.html"><? echo $nodo[$i][1]; ?></a></h4>
-					  <a href="preview.html"><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][7]."'"; ?> alt="" /></a>
+						<h4><a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> ><? echo $nodo[$i][1]; ?></a></h4>
+					  <a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> ><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][7]."'"; ?> alt="" /></a>
 					  <br>
 					  <small>Ubicado en <? echo $nodo[$i][2]; ?></small><br>
 						<small>Facultad de <? echo $nodo[$i][3]; ?></small><br>
@@ -358,15 +367,30 @@
 					?>
 
 					<div class="grid_1_of_4 images_1_of_4">
-						<h4><a href="preview.html"><? echo $nodo[$i][2]; ?></a></h4>
-					  <a href="preview.html"><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][1]."'"; ?> alt="" /></a>
+						<h4><a><? echo $nodo[$i][2]; ?></a></h4>
+					  <a><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][1]."'"; ?> alt="" /></a>
 					  <br>
 					  <small>Codigo Patrimonial <? echo $nodo[$i][3]; ?></small><br>
 						<small>Fecha de Adquisición <? echo $nodo[$i][4]; ?></small><br><br>
 					  <div class="price-details">
 				    	<div class="add-cart">								
-								<h4><a href="preview.html">Ver Equipos</a></h4>
-							</div>
+								
+								<?
+							  	$cont_exto='';
+							  	$fil_tro='';
+							  	if(isset($_GET['contexto']))
+							  	{
+							  		$cont_exto="&contexto=".$_GET['contexto'];
+							  	}
+							  	if(isset($_GET['filtro']))
+							  	{
+							  		$fil_tro="&filtro=".$_GET['filtro'];
+							  	}
+							  ?>
+
+								<h4><a <? echo "href='preview.php?nodo=".$_GET['nodo'].$cont_exto.$fil_tro."&index=".$i."'"; ?> >Ver Detalles</a></h4>
+							
+							      </div>
 						</div>
 						<div class="clear">
 						</div>
@@ -383,16 +407,12 @@
       </div>
     </div>
   </div>
+  <br>
   <div class="footer">
   	<div class="wrap">	
 			<div class="copy_right">
 				<p>Copy rights (c). All rights Reseverd | ESIS - 2015</p>
-		  </div>	
-		 	<div class="footer-nav">
-		  	<ul>
-		   		<li><a href="contact.html">Contact Us</a> : </li>
-		   	</ul>
-		  </div>		
+		  </div>			
     </div>
   </div>
   <script type="text/javascript">
