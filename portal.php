@@ -269,8 +269,31 @@
 				
     	  <div class="content-bottom-right">
     	    <ul class="back-links">
+
+    	    	<?
+    	    		$c_ontexto='';
+    	    		if(isset($_GET['contexto']))
+    	    		{
+    	    			if(is_numeric($_GET['contexto']))
+    	    			{
+    	    				$query="call nombre_contexto_tipo_especificacion('".$_GET['contexto']."');";
+									$result=$conexion->query($query);
+									while($row = mysqli_fetch_row($result))
+									{
+										$c_ontexto=$row[0];
+									}
+									mysqli_free_result($result);
+									$conexion->next_result();
+    	    			}
+    	    			else
+    	    			{
+    	    				$c_ontexto=$_GET['contexto'];
+    	    			}
+    	    		}
+    	    		else
+    	    	?>
 						<li><a href="#">Nodo: <? echo $_GET['nodo']; ?></a> ::</li>
-						<li><a href="#">Contexto: <? if(isset($_GET['contexto'])){echo $_GET['contexto'];} ?></a> ::</li>
+						<li><a href="#">Contexto: <? echo $c_ontexto; ?></a> ::</li>
 						<li><a href="#">Filtro: <? if(isset($_GET['filtro'])){echo $_GET['filtro'];} ?></a></li>
 						<div class="clear"> </div>
 					</ul>
@@ -335,6 +358,13 @@
 						}
 						mysqli_free_result($result);
 						$conexion->close();
+
+						if(count($nodo)==0)
+						{
+							echo "0 resultados";
+						}
+
+
 						for ($i=0; $i < count($nodo); $i++)
 						{ 
 							if ($_GET["nodo"]=="ambiente")

@@ -178,7 +178,7 @@
 										$nodo[]=$row;
 									}
 									mysqli_free_result($result);
-									$conexion->next_result(); 
+									$conexion->next_result();
 								?>
 
 							  <ul>
@@ -404,17 +404,47 @@
 
 					<div class="content-bottom-right">
 						<ul class="back-links">
+
+							<?
+	    	    		$c_ontexto='';
+	    	    		if(isset($_GET['contexto']))
+	    	    		{
+	    	    			if(is_numeric($_GET['contexto']))
+	    	    			{
+	    	    				$query="call nombre_contexto_tipo_especificacion('".$_GET['contexto']."');";
+										$result=$conexion->query($query);
+										while($row = mysqli_fetch_row($result))
+										{
+											$c_ontexto=$row[0];
+										}
+										mysqli_free_result($result);
+										$conexion->next_result();
+	    	    			}
+	    	    			else
+	    	    			{
+	    	    				$c_ontexto=$_GET['contexto'];
+	    	    			}
+	    	    		}
+	    	    		else
+	    	    	?>
 							<li><a href="#">Nodo: <? echo $_GET['nodo']; ?></a> ::</li>
-						<li><a href="#">Contexto: <? if(isset($_GET['contexto'])){echo $_GET['contexto'];} ?></a> ::</li>
-						<li><a href="#">Filtro: <? if(isset($_GET['filtro'])){echo $_GET['filtro'];} ?></a></li>
+							<li><a href="#">Contexto: <? echo $c_ontexto; ?></a> ::</li>
+							<li><a href="#">Filtro: <? if(isset($_GET['filtro'])){echo $_GET['filtro'];} ?></a></li>
+					
 							<div class="clear"> </div>
 						</ul>
+
+						<?
+							if(count($nodo)>$_GET['index'])
+							{
+						?>
+
 						<div class="product-details">	
 							<div class="grid images_3_of_2">
 								<ul id="etalage">
 									<li>
 										<a href="optionallink.html">
-											<img class="etalage_thumb_image" <? echo "src='https://unjbg.herokuappd.com/media/".$nodo[$_GET['index']][1]."'"; ?> />
+											<img class="etalage_thumb_image" <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$_GET['index']][1]."'"; ?> />
 											<img class="etalage_source_image" <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$_GET['index']][1]."'"; ?> <? echo "title='".$nodo[$_GET['index']][2]."'"; ?> />
 										</a>
 									</li>
@@ -470,6 +500,15 @@
 								</div>
 							</div>
 						</div>
+
+						<?
+							}
+							else
+							{
+								echo "0 Resultados";
+							}
+						?>
+
 					</div>
 				</form>
 			</div>
