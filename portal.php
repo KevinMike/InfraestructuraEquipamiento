@@ -367,6 +367,13 @@
 
 						for ($i=0; $i < count($nodo); $i++)
 						{ 
+							if($i%3==0)
+							{
+						?>
+								<div class="section group">
+						<?
+							}
+
 							if ($_GET["nodo"]=="ambiente")
 							{
 
@@ -426,6 +433,12 @@
 						</div>
 					</div>
 
+					<?
+							}
+							if($i%3==2 or $i+1==count($nodo))
+							{
+					?>
+								</div>
 					<?
 							}
 						}
