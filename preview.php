@@ -61,7 +61,7 @@
 			<div class="header_top">
 				<br><br>
 				<div class="logo">
-					<a href="index.html" ><img src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
+					<a href="index.html" ><img alt="Logo ESIS" src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
 					<div class="slider-text">
 						<h2> INFRAESTRUCTURA Y EQUIPAMIENTO <br/>Escuela Academico profesional en Ingenieria en Informatica y Sistemas</h2>
 					</div>
@@ -414,8 +414,8 @@
 								<ul id="etalage">
 									<li>
 										<a href="optionallink.html">
-											<img class="etalage_thumb_image" <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$_GET['index']][1]."'"; ?> />
-											<img class="etalage_source_image" <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$_GET['index']][1]."'"; ?> title="XXX" />
+											<img class="etalage_thumb_image" <? echo "src='https://unjbg.herokuappd.com/media/".$nodo[$_GET['index']][1]."'"; ?> />
+											<img class="etalage_source_image" <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$_GET['index']][1]."'"; ?> <? echo "title='".$nodo[$_GET['index']][2]."'"; ?> />
 										</a>
 									</li>
 								</ul>

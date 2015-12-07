@@ -69,9 +69,9 @@
 							{ 
 						?>
 								<article>
-									<a href="#" class="image featured"><img <? echo "src='https://unjbg.herokuapp.com/media/".$infra[$i][5]."'"; ?> alt="" /></a>
+									<a class="image featured"><img <? echo "src='https://unjbg.herokuapp.com/media/".$infra[$i][5]."'"; ?> <? echo "alt='Foto del Edificio: ".$infra[$i][1]."'" ?> /></a>
 									<header>
-										<h3><a href="#"><? echo $infra[$i][1]; ?></a></h3>
+										<h3><a><? echo $infra[$i][1]; ?></a></h3>
 									</header>
 									<p>Perteneciente a la Facultad de <? echo $infra[$i][2]; ?></p>
 									<p>Nro de Pisos: <? echo $infra[$i][3]; ?></p>

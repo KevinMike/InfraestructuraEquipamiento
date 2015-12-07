@@ -28,7 +28,7 @@
 			<div class="header_top">
 					<br><br>
 				<div class="logo">
-					<a href="index.php" ><img src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
+					<a href="index.php" ><img  alt="Logo ESIS" src="images/logo.png" alt="" width='200' height='200' align='left' margin-top="10px" /></a>
 					<div class="slider-text">
 			   		<h2> INFRAESTRUCTURA Y EQUIPAMIENTO <br/>Escuela Academico profesional en Ingenieria en Informatica y Sistemas</h2>
 	  	    </div>
@@ -344,7 +344,7 @@
 
  					<div class="grid_1_of_4 images_1_of_4">
 						<h4><a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> ><? echo $nodo[$i][1]; ?></a></h4>
-					  <a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> ><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][7]."'"; ?> alt="" /></a>
+					  <a <? echo "href='portal.php?nodo=equipo&contexto=ambiente&filtro=".$nodo[$i][1]."'"; ?> ><img <? echo "alt='Foto del Ambiente: ".$nodo[$i][1]."'"; ?> <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][7]."'"; ?> /></a>
 					  <br>
 					  <small>Ubicado en <? echo $nodo[$i][2]; ?></small><br>
 						<small>Facultad de <? echo $nodo[$i][3]; ?></small><br>
@@ -368,7 +368,7 @@
 
 					<div class="grid_1_of_4 images_1_of_4">
 						<h4><a><? echo $nodo[$i][2]; ?></a></h4>
-					  <a><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][1]."'"; ?> alt="" /></a>
+					  <a><img <? echo "src='https://unjbg.herokuapp.com/media/".$nodo[$i][1]."'"; ?> <? echo "alt='Foto del Equipo: ".$nodo[$i][2]."'"; ?> /></a>
 					  <br>
 					  <small>Codigo Patrimonial <? echo $nodo[$i][3]; ?></small><br>
 						<small>Fecha de Adquisición <? echo $nodo[$i][4]; ?></small><br><br>
